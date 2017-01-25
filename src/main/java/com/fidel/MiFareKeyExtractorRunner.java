@@ -20,18 +20,20 @@ public class MiFareKeyExtractorRunner {
 
 					for (int i = 4; i < 64; i++) {
 
-						printStatus(i, 0);
-
 						for (long j = 0; j <= Long.decode("0xFFFFFFFFFFFF"); j++) {
 							if (j % 100 == 0) {
-								for (int space = 0; space < 54; space++) {
-									System.out.print("\b");
+
+								if (j != 0) {
+									for (int space = 0; space < printStatus(i, j - 100).length(); space++) {
+										System.out.print("\b");
+									}
 								}
-								printStatus(i, j);
+
+								System.out.print(printStatus(i, j));
 							}
 
 							if (reader.loginIntoBlockWithKey(i, j)) {
-								printStatus(i, j);
+								System.out.print(printStatus(i, j));
 							}
 						}
 					}
@@ -43,8 +45,7 @@ public class MiFareKeyExtractorRunner {
 		}
 	}
 
-	private static void printStatus(int i, long j) {
-		System.out.print("Checked " + (double) (j / Long.decode("0xFFFFFFFFFFFF")) + " in block " + i + " at "
-				+ new Date().toString());
+	private static String printStatus(int i, long j) {
+		return "Checked " + j + "/" + Long.decode("0xFFFFFFFFFFFF") + " in block " + i + " at " + new Date().toString();
 	}
 }

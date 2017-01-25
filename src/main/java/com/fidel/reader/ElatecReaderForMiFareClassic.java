@@ -80,16 +80,19 @@ public class ElatecReaderForMiFareClassic {
 		boolean keyFound = false;
 		byte[] byteKey = ReaderTools.longToByteArray(key);
 
+		huntCard();
 		if (loginIntoBlockWithKey(block, byteKey, true)) {
 			System.out.println("");
 			System.out.println("the key " + ReaderTools.getByteArray(byteKey) + " is a valid A Key");
 			keyFound = true;
 		}
 
+		huntCard();
 		if (loginIntoBlockWithKey(block, byteKey, false)) {
 			System.out.println("the key " + ReaderTools.getByteArray(byteKey) + " is a valid A Key");
 			keyFound = true;
 		}
+
 		return keyFound;
 	}
 
